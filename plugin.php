@@ -6,7 +6,7 @@
  * Description: Enable ACF block data for WP GraphQL Blocks.
  * Author: WebDevEducation 
  * Author URI: https://webdeveducation.com
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 6.0
  * License: GPL-3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -15,7 +15,7 @@
 add_action( 'init', 'wp_graphql_blocks_acf_setup' );
 
 function wp_graphql_blocks_acf_setup(){
-  add_filter('wp_graphql_blocks_process_attributes', 'wp_graphql_blocks_acf_process_attributes', 10, 4);
+  add_filter('wp_graphql_blocks_process_attributes', 'wp_graphql_blocks_acf_process_attributes', 1, 4);
   function wp_graphql_blocks_acf_process_attributes ($attributes, $block_type, $data, $postId){
     // if it's an ACF block
     if(isset($attributes['data']) && $block_type['acf_block_version']){
