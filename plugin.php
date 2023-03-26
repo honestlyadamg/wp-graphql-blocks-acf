@@ -6,14 +6,14 @@
  * Description: Enable ACF block data for WP GraphQL Blocks.
  * Author: WebDevEducation 
  * Author URI: https://webdeveducation.com
- * Version: 1.0.3
+ * Version: 1.0.4
  * Requires at least: 6.0
  * License: GPL-3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 
- if (!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
 	die('Silence is golden.');
 }
 
@@ -29,6 +29,20 @@ if (!class_exists('WPGraphQLBlocksAcf')) {
 		}
 
 		public function init() {
+      if (!class_exists('\WPGraphQLBlocks\WPGraphQLBlocks')) {
+        // WPGraphQLBlocks plugin is not activated
+        add_action(
+          'admin_notices',
+          function() {
+            ?>
+            <div class="error notice">
+              <p><a href="https://github.com/webdeveducation/wp-graphql-blocks/releases" target="_blank" rel="noopener noreferrer">WP GraphQL Blocks</a> must be active for <strong>WP GraphQL Blocks ACF</strong> to work.</p>
+            </div>
+            <?php
+          }
+        );
+      } 
+
       add_filter('wp_graphql_blocks_process_attributes', function ($attributes, $data, $post_id){
         // if it's an ACF block
         if(isset($attributes['data'])){
