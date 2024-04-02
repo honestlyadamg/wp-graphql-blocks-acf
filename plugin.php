@@ -54,20 +54,22 @@ if (!class_exists('WPGraphQLBlocksAcf')) {
                 $image_alt = get_post_meta($imageId, '_wp_attachment_image_alt', TRUE);
                 $image_title = get_the_title($imageId);
 
-                if ($fieldObject['return_format'] == 'url') {
-                  $attributes['data'][substr($key, 1)] = $img[0];
-                } else if ($fieldObject['return_format'] == 'array') {
-                  $attributes['data'][substr($key, 1)] = array(
-                    'id' => $imageId,
-                    'url' => $img[0],
-                    'width' => $img[1],
-                    'height' => $img[2],
-                    'resized' => $img[3],
-                    'alt' => $image_alt,
-                    'title' => $image_title
-                  );
-                } else if ($fieldObject['return_format'] == 'id') {
-                  $attributes['data'][substr($key, 1)] = $imageId;
+                if ($img) {
+                  if ($fieldObject['return_format'] == 'url') {
+                    $attributes['data'][substr($key, 1)] = $img[0];
+                  } else if ($fieldObject['return_format'] == 'array') {
+                    $attributes['data'][substr($key, 1)] = array(
+                      'id' => $imageId,
+                      'url' => $img[0],
+                      'width' => $img[1],
+                      'height' => $img[2],
+                      'resized' => $img[3],
+                      'alt' => $image_alt,
+                      'title' => $image_title
+                    );
+                  } else if ($fieldObject['return_format'] == 'id') {
+                    $attributes['data'][substr($key, 1)] = $imageId;
+                  }
                 }
               }
 
